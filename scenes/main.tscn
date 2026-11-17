@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dvi1pxfo06lxp"]
+
+[ext_resource type="Script" uid="uid://du6ap8xyxe3sb" path="res://scripts/main.gd" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dlr8x1qb3a8n0" path="res://scenes/robot_dog.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://bosfrrnsdnbgp" path="res://scripts/mountain.gd" id="3_sugp2"]
+
+[node name="Main" type="Node2D" unique_id=1672589832]
+script = ExtResource("1_0wfyh")
+
+[node name="Mountain" type="Node2D" parent="." unique_id=1945058567]
+script = ExtResource("3_sugp2")
+
+[node name="RobotDog" parent="." unique_id=893031852 instance=ExtResource("1_o5qli")]
+position = Vector2(240, 135)

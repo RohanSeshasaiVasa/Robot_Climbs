@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dlr8x1qb3a8n0"]
+
+[ext_resource type="Script" uid="uid://ttnthc2hduhc" path="res://scripts/robot_dog.gd" id="1_7oqxr"]
+[ext_resource type="Texture2D" uid="uid://buyuiwm7cpwmy" path="res://assets/robot_dog.png" id="2_mnw8q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mnw8q"]
+radius = 7.0
+
+[node name="RobotDog" type="CharacterBody2D" unique_id=893031852]
+motion_mode = 1
+script = ExtResource("1_7oqxr")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=1383146707]
+texture = ExtResource("2_mnw8q")
+hframes = 4
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1803474857]
+shape = SubResource("CircleShape2D_mnw8q")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=539923393]
+offset = Vector2(0, -40)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
