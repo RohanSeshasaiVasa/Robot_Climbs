@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_mnw8q"]
 radius = 7.0
 
-[node name="RobotDog" type="CharacterBody2D" unique_id=893031852]
+[node name="RobotDog" type="CharacterBody2D" unique_id=893031852 groups=["player"]]
 motion_mode = 1
 script = ExtResource("1_7oqxr")
 

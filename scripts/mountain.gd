@@ -2,11 +2,19 @@ extends Node
 
 const GRASS: Texture2D = preload("res://assets/ground_grass.png")
 const CLIFF: Texture2D = preload("res://assets/cliff.png")
-
+const ROCK: Texture2D = preload("res://assets/ground_rock.png")
+const SNOW: Texture2D = preload("res://assets/ground_snow.png")
+const GRASS_TO_ROCK: Texture2D = preload("res://assets/edge_grass_rock.png")
+const ROCK_TO_SNOW: Texture2D = preload("res://assets/edge_rock_snow.png")
 
 func _ready() -> void:
+	var rock_line := Climb.y_at(Climb.ROCK_START_METERS)
+	var snow_line := Climb.y_at(Climb.SNOW_START_METERS)
+	
 	_add_ground(GRASS, Climb.TOP_Y, Climb.BOTTOM_Y)
-	_add_wall(0.0, false)
+	_add_ground(ROCK, snow_line, rock_line)
+	_add_ground(SNOW, Climb.TOP_Y, snow_line)
+	_add_wall(0.0, false)	
 	_add_wall(Climb.MOUNTAIN_WIDTH - Climb.WALL_WIDTH, true)
 
 func _add_ground(texture: Texture2D, top_y: float, bottom_y: float) -> void:
@@ -20,6 +28,17 @@ func _add_ground(texture: Texture2D, top_y: float, bottom_y: float) -> void:
 	ground.z_index = -10
 	add_child(ground)
 
+func _add_edge(texture: Texture2D, line_y: float) -> void:
+	var edge := Sprite2D.new()
+	edge.texture = texture
+	edge.centered = false
+	edge.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+	edge.region_enabled = true
+	edge.region_rect = Rect2(0, 0, Climb.MOUNTAIN_WIDTH, texture.get_height())
+	edge.position = Vector2(0, line_y - texture.get_height() / 2.0)
+	edge.z_index = -10
+	add_child(edge)
+	
 func _add_wall(left_x: float, mirrored: bool) -> void:
 	var height := Climb.BOTTOM_Y - Climb.TOP_Y
 	var wall := StaticBody2D.new()

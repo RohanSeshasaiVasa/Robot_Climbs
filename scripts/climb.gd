@@ -10,3 +10,11 @@ const MARGIN: float = 240.0
 const TOP_Y: float = SUMMIT_Y - MARGIN
 const BOTTOM_Y: float = START_Y + MARGIN
 const WALL_WIDTH: float = 16.0
+const ROCK_START_METERS: float = 700.0
+const SNOW_START_METERS: float = 1400.0
+
+static func y_at(meters: float) -> float:
+	return START_Y - meters *  METER
+
+static func height_at(y: float) -> float:
+	return clampf((START_Y - y) / METER, 0.0, SUMMIT_METERS)

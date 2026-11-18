@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://di31nb6l6gfug"]
+
+[ext_resource type="Texture2D" uid="uid://co1y2mtle36cj" path="res://assets/summit_flag.png" id="1_6urtj"]
+[ext_resource type="Script" uid="uid://dl2omuigrga3y" path="res://scripts/summit.gd" id="1_68v2f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6urtj"]
+size = Vector2(352, 8)
+
+[node name="Summit" type="Area2D" unique_id=761004015]
+script = ExtResource("1_68v2f")
+
+[node name="Flag" type="Sprite2D" parent="." unique_id=700773053]
+position = Vector2(0, -12)
+texture = ExtResource("1_6urtj")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1995159943]
+shape = SubResource("RectangleShape2D_6urtj")

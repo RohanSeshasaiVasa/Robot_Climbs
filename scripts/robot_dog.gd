@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const STEP_LENGTH: float = Climb.METER
 
-@export var max_speed: float = 90.0
+@export var max_speed: float = 200.0
 @export var acceleration: float = 500.0
 @export var friction: float = 650.0
 @export var max_lean: float = 0.25
