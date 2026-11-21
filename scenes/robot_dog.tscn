@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ttnthc2hduhc" path="res://scripts/robot_dog.gd" id="1_7oqxr"]
 [ext_resource type="Texture2D" uid="uid://buyuiwm7cpwmy" path="res://assets/robot_dog.png" id="2_mnw8q"]
+[ext_resource type="Texture2D" uid="uid://bwhw0hdnw2scj" path="res://assets/basket.png" id="3_4p24b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mnw8q"]
 radius = 7.0
@@ -14,6 +15,12 @@ script = ExtResource("1_7oqxr")
 texture = ExtResource("2_mnw8q")
 hframes = 4
 frame = 1
+
+[node name="Basket" type="Sprite2D" parent="Body" unique_id=435807801]
+position = Vector2(0, 2)
+texture = ExtResource("3_4p24b")
+hframes = 7
+frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1803474857]
 shape = SubResource("CircleShape2D_mnw8q")

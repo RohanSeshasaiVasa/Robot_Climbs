@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://drycec3p3kknd"]
+
+[ext_resource type="Script" uid="uid://cr88pmv68ysj5" path="res://scripts/rough_ground.gd" id="1_j80v4"]
+[ext_resource type="Texture2D" uid="uid://dlu6pmxhuny4" path="res://assets/rough_ground.png" id="1_nkfr3"]
+
+[node name="RoughGround" type="Area2D" unique_id=494748139]
+script = ExtResource("1_j80v4")
+
+[node name="Patch" type="NinePatchRect" parent="." unique_id=2014755752]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_nkfr3")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=40646677]
