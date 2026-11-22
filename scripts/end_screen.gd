@@ -16,7 +16,7 @@ func _ready() -> void:
 	title_label.add_theme_font_size_override("font_size", 16)
 	info_label = _add_label(136, Color("f4f4f4"))
 	var hint := _add_label(200, Color("94b0c2"))
-	hint.text = "PRESS R TO CLIMB AGAIN"
+	hint.text = "R: CLIMB AGAIN    ESC: MENU"
 
 func show_message(title: String, info: String) -> void:
 	title_label.text = title
@@ -28,6 +28,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed("restart"):
 		get_tree().paused = false
 		get_tree().reload_current_scene()
+	elif visible and event.is_action_pressed("menu"):
+		get_tree().paused = false
+		get_tree().change_scene_to_file("res://scenes/menu.tscn")
 
 func _add_label(y: float, color: Color) -> Label:
 	var label := Label.new()

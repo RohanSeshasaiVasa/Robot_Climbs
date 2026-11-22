@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CargoType" format=3 uid="uid://cr6nwn67wc5r5"]
+
+[ext_resource type="Script" uid="uid://6udkokkoj5xk" path="res://scripts/cargo_type.gd" id="1_34myc"]
+[ext_resource type="Texture2D" uid="uid://dibxrfjdio83q" path="res://assets/basket_bottles.png" id="1_odc3o"]
+[ext_resource type="Texture2D" uid="uid://bfwaevo3jb52n" path="res://assets/bottle_broken_icon.png" id="2_650sb"]
+[ext_resource type="Texture2D" uid="uid://dpftijrhl48p6" path="res://assets/bottle_icon.png" id="3_ay667"]
+[ext_resource type="Texture2D" uid="uid://co3ynnjddxa2o" path="res://assets/bottle_splat.png" id="5_nkt8m"]
+
+[resource]
+script = ExtResource("1_34myc")
+display_name = "BOTTLES"
+single_name = "BOTTLE"
+count = 5
+weight = 6.0
+fragility = 1.8
+basket = ExtResource("1_odc3o")
+icon = ExtResource("3_ay667")
+basket_icon = ExtResource("2_650sb")
+splat = ExtResource("5_nkt8m")
+shard_color = Color(0.654902, 0.9411765, 0.4392157, 1)
+metadata/_custom_type_script = "uid://6udkokkoj5xk"

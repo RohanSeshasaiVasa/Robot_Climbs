@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CargoType" format=3 uid="uid://cywvaugviffgu"]
+
+[ext_resource type="Texture2D" uid="uid://32kbh3e8ynpp" path="res://assets/basket_bulbs.png" id="1_eqtsy"]
+[ext_resource type="Script" uid="uid://6udkokkoj5xk" path="res://scripts/cargo_type.gd" id="1_rxwff"]
+[ext_resource type="Texture2D" uid="uid://lei511nmuaog" path="res://assets/bulb_icon.png" id="3_kqpir"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tjh6q"]
+load_path = "res://.godot/imported/bulb_splat.png-a5dbb67ba573da6a715b39990af01cea.ctex"
+
+[resource]
+script = ExtResource("1_rxwff")
+display_name = "BULBS"
+single_name = "BULB"
+count = 5
+weight = 2.0
+fragility = 1.4
+basket = ExtResource("1_eqtsy")
+icon = ExtResource("3_kqpir")
+splat = SubResource("CompressedTexture2D_tjh6q")
+shard_color = Color(0.8392157, 0.93333334, 0.96862745, 1)
+metadata/_custom_type_script = "uid://6udkokkoj5xk"

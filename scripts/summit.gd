@@ -5,6 +5,9 @@ signal reached
 var is_reached: bool = false
 @onready var flag: Sprite2D = $Flag
 
+func reset() -> void:
+	is_reached = false
+
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 

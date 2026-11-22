@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://d0g3itsm4pjte"]
+
+[ext_resource type="Texture2D" uid="uid://b6vytpccepgln" path="res://assets/shopkeeper.png" id="1_lx5au"]
+[ext_resource type="Script" uid="uid://bkfoojhedpsox" path="res://scripts/shop.gd" id="1_xfvoa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xfvoa"]
+size = Vector2(56, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lx5au"]
+size = Vector2(44, 18)
+
+[node name="Shop" type="Area2D" unique_id=912959658]
+script = ExtResource("1_xfvoa")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1617317497]
+texture = ExtResource("1_lx5au")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=700657152]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_xfvoa")
+
+[node name="Counter" type="StaticBody2D" parent="." unique_id=782360793]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Counter" unique_id=498083850]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_lx5au")
+
+[node name="Hint" type="Label" parent="." unique_id=773197976]
+z_index = 5
+offset_left = -64.0
+offset_top = -36.0
+offset_right = 64.0
+offset_bottom = -28.0
+theme_override_colors/font_color = Color(1, 0.8039216, 0.45882353, 1)
+text = "GET EGGS !"
+horizontal_alignment = 1

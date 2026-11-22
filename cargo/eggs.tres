@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CargoType" format=3 uid="uid://dkwsrynwxjhlj"]
+
+[ext_resource type="Script" uid="uid://6udkokkoj5xk" path="res://scripts/cargo_type.gd" id="1_7nwtb"]
+[ext_resource type="Texture2D" uid="uid://bwhw0hdnw2scj" path="res://assets/basket.png" id="1_pfocu"]
+[ext_resource type="Texture2D" uid="uid://p1b3japfuxpa" path="res://assets/egg_icon.png" id="2_70fb7"]
+[ext_resource type="Texture2D" uid="uid://dyce1tpjvxntt" path="res://assets/egg_broken_icon.png" id="2_o4bt8"]
+[ext_resource type="Texture2D" uid="uid://lkgaitmbkn2a" path="res://assets/egg_splat.png" id="5_o4bt8"]
+
+[resource]
+script = ExtResource("1_7nwtb")
+basket = ExtResource("1_pfocu")
+icon = ExtResource("2_70fb7")
+basket_icon = ExtResource("2_o4bt8")
+splat = ExtResource("5_o4bt8")
+metadata/_custom_type_script = "uid://6udkokkoj5xk"

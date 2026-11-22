@@ -49,7 +49,7 @@ func _add_rough_patch(y: float, difficulty: float) -> void:
 		size.y = randf_range(40.0, 64.0 + 24.0 * difficulty)
 	
 	var half := size.x / 2.0
-	var x := randf_range(Climb.WALL_WIDTH + half, Climb.MOUNTAIN_WIDTH - Climb.WALL_WIDTH - half)
+	var _x := randf_range(Climb.WALL_WIDTH + half, Climb.MOUNTAIN_WIDTH - Climb.WALL_WIDTH - half)
 	
 	patch.patch_size = size
 	add_child(patch)

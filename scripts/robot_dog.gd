@@ -7,12 +7,10 @@ signal bumped
 
 const STEP_LENGTH: float = Climb.METER
 
-@export var max_speed: float = 120.0
+@export var max_speed: float = 600.0
 @export var acceleration: float = 500.0
 @export var friction: float = 650.0
 @export var max_lean: float = 0.25
-@export var start_eggs: int = 6
-@export var weight_per_egg: float = 4.0
 @export var safe_speed: float = 40.0
 @export var shake_gain: float = 0.03
 @export var shake_recovery: float = 0.5
@@ -20,6 +18,7 @@ const STEP_LENGTH: float = Climb.METER
 @export var bounce: float = 50.0
 @export var careful_factor: float = 0.3
 
+var cargo: CargoType = null
 var eggs: int = 0
 var shake: float = 0.0
 var rough_patches: int = 0
@@ -29,7 +28,7 @@ var walk_distance: float = 0.0
 @onready var basket: Sprite2D = $Body/Basket
 
 func _ready() -> void:
-	eggs = start_eggs
+	eggs = 0
 	_update_basket()
 
 func _physics_process(delta: float) -> void:
@@ -47,7 +46,10 @@ func _physics_process(delta: float) -> void:
 	_animate(delta)
 
 func get_top_speed() -> float:
-	var speed := max_speed - eggs * weight_per_egg
+	var weight_per_item := 0.0
+	if cargo != null:
+		weight_per_item = cargo.weight
+	var speed := max_speed - eggs * weight_per_item
 	if Input.is_action_pressed("careful"):
 		speed *= careful_factor
 	return speed
@@ -70,7 +72,7 @@ func break_egg() -> void:
 func _update_shake(delta: float) -> void:
 	var speed := velocity.length()
 	if rough_patches > 0 and speed > safe_speed:
-		shake += (speed - safe_speed) * shake_gain * delta
+		shake += (speed - safe_speed) * shake_gain * get_fragility() * delta
 	else:
 		shake = maxf(shake - shake_recovery * delta, 0.0)
 		
@@ -84,15 +86,17 @@ func _check_bumps(velocity_before: Vector2) -> void:
 		var collision := get_slide_collision(i)
 		var normal := collision.get_normal()
 		var impact := -velocity_before.dot(normal)
-		
-		if collision.get_collider().is_in_group("boulders") and impact > bump_speed:
-			velocity = normal * bounce
+		var break_speed := bump_speed / get_fragility()
+		if collision.get_collider().is_in_group("boulders") and impact > break_speed:
+			velocity = normal * minf(bounce, break_speed * 0.6)
 			bumped.emit()
 			break_egg()
 			return
 		velocity = velocity.slide(normal)
 
 func hit_by_rock(rock_position: Vector2) -> void:
+	if not is_physics_processing():
+		return
 	velocity = (global_position - rock_position).normalized() * bounce * 2.0
 	bumped.emit()
 	break_egg()
@@ -118,3 +122,20 @@ func _animate(delta: float) -> void:
 		body.position = Vector2(randf_range(-rattle, rattle), randf_range(-rattle, rattle))
 	else:
 		body.position = Vector2.ZERO
+
+func empty_basket() -> void:
+	eggs = 0
+	shake = 0.0
+	_update_basket()
+
+func load_cargo(new_cargo: CargoType) -> void:
+	cargo = new_cargo
+	eggs = cargo.count
+	basket.texture = cargo.basket
+	basket.hframes = cargo.count + 1
+	_update_basket()
+
+func get_fragility() -> float:
+	if cargo == null:
+		return 1.0
+	return cargo.fragility

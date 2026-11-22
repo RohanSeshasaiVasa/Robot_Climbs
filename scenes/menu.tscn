@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://58xypeowya6a"]
+
+[ext_resource type="Script" uid="uid://dmsi8t6c1uc1n" path="res://scripts/menu.gd" id="1_vjb58"]
+[ext_resource type="Texture2D" uid="uid://crjht3fdcmap0" path="res://assets/sidebar_mountain.png" id="1_yqeox"]
+
+[node name="Menu" type="Control" unique_id=777631163]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vjb58")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1153832174]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.10980392, 0.17254902, 1)
+
+[node name="Mountain" type="TextureRect" parent="." unique_id=727475662]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 28.0
+offset_right = 96.0
+offset_bottom = 140.0
+scale = Vector2(2, 2)
+texture = ExtResource("1_yqeox")
+
+[node name="Title" type="Label" parent="." unique_id=1809898319]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 40.0
+offset_right = 464.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(1, 0.8039216, 0.45882353, 1)
+theme_override_font_sizes/font_size = 16
+text = "ROBOT CLIMBS"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="." unique_id=1843113002]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 66.0
+offset_right = 464.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0.5803922, 0.6901961, 0.7607843, 1)
+text = "DELIVER IT. DON'T BREAK IT."
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=670176276]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 108.0
+offset_right = 384.0
+offset_bottom = 208.0
+theme_override_constants/separation = 8
+
+[node name="PlayButton" type="Button" parent="Buttons" unique_id=588551542]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "PLAY"
+
+[node name="AboutButton" type="Button" parent="Buttons" unique_id=2108384005]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "ABOUT
+"
+
+[node name="LeaveButton" type="Button" parent="Buttons" unique_id=1395584468]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "LEAVE"
+
+[node name="AboutPanel" type="Panel" parent="." unique_id=879628339]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 152.0
+offset_top = 30.0
+offset_right = 464.0
+offset_bottom = 246.0
+
+[node name="AboutText" type="Label" parent="AboutPanel" unique_id=640997225]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 300.0
+offset_bottom = 172.0
+text = "Carry fragile cargo from the shopkeeper up the mountain. Deliver 10 items in total to win.
+
+Rough ground shakes your basket, boulders crack it, and rocks roll down from above.
+
+MOVE          WASD / ARROWS
+CAREFUL	SHIFT
+RESTART		R
+
+Made using Godot. By Rohan Seshasai Vasa. A fellow Hackclubber from India."
+autowrap_mode = 3
+
+[node name="BackButton" type="Button" parent="AboutPanel" unique_id=1343732440]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 108.0
+offset_top = 182.0
+offset_right = 204.0
+offset_bottom = 206.0
+text = "BACK"

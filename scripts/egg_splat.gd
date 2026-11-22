@@ -12,3 +12,8 @@ func _ready() -> void:
 	tween.tween_property(label, "position:y", label.position.y - 20.0, 0.8)
 	tween.parallel().tween_property(label, "modulate:a", 0.0, 0.8)
 	tween.tween_callback(label.queue_free)
+
+func setup(cargo: CargoType) -> void:
+	$Splat.texture = cargo.splat
+	$Shells.color = cargo.shard_color
+	$Label.text = "-1 " + cargo.single_name

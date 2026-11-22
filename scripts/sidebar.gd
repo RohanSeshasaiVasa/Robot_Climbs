@@ -2,8 +2,6 @@ extends CanvasLayer
 
 const MOUNTAIN_PICTURE: Texture2D = preload("res://assets/sidebar_mountain.png")
 const DOG_MARKER: Texture2D = preload("res://assets/dog_marker.png")
-const EGG_ICON: Texture2D = preload("res://assets/egg_icon.png")
-const EGG_BROKEN_ICON: Texture2D = preload("res://assets/egg_broken_icon.png")
 
 const WIDTH = 96.0
 const BACKGROUND := Color("1a1c2c")
@@ -22,8 +20,13 @@ var height_value: Label
 var egg_icons: Array[TextureRect] = []
 var shake_bar: ProgressBar
 var shake_fill: StyleBoxFlat
+var cargo_label: Label
+var goal_label: Label
+var whole_icon: Texture2D
+var broken_icon: Texture2D
 
 func _ready() -> void:
+	# The dark panel that fills the 96 px strip on the right of the screen.
 	panel = Panel.new()
 	panel.position = Vector2(Climb.MOUNTAIN_WIDTH, 0)
 	panel.size = Vector2(WIDTH, 270)
@@ -33,21 +36,26 @@ func _ready() -> void:
 	style.border_width_left = 2
 	panel.add_theme_stylebox_override("panel", style)
 	add_child(panel)
+
 	_add_label(panel, "ROBOT\nCLIMBS", 6, Color.WHITE)
+
+	# The little mountain, with the dog marker on top of it.
 	mountain = TextureRect.new()
 	mountain.texture = MOUNTAIN_PICTURE
 	mountain.position = Vector2((WIDTH - MOUNTAIN_PICTURE.get_width()) / 2.0, 32)
 	panel.add_child(mountain)
-	
+
 	marker = TextureRect.new()
 	marker.texture = DOG_MARKER
 	mountain.add_child(marker)
-	
+
 	_add_label(panel, "HEIGHT", 152, TEXT_DIM)
 	height_value = _add_label(panel, "0 m", 164, TEXT_BRIGHT)
 	_add_label(panel, "of %d m" % int(Climb.SUMMIT_METERS), 176, TEXT_DIM)
-		
-	_add_label(panel, "EGGS", 194, TEXT_DIM)
+
+	cargo_label = _add_label(panel, "CARGO", 194, TEXT_DIM)
+
+	# The shake meter: fills up while the basket rattles on rough ground.
 	_add_label(panel, "SHAKE", 232, TEXT_DIM)
 	shake_bar = ProgressBar.new()
 	shake_bar.position = Vector2(12, 244)
@@ -58,9 +66,11 @@ func _ready() -> void:
 	bar_back.bg_color = BORDER
 	shake_fill = StyleBoxFlat.new()
 	shake_fill.bg_color = TEXT_BRIGHT
-	shake_bar.add_theme_stylebox_override("backgorund", bar_back)
+	shake_bar.add_theme_stylebox_override("background", bar_back)
 	shake_bar.add_theme_stylebox_override("fill", shake_fill)
 	panel.add_child(shake_bar)
+	goal_label = _add_label(panel, "GOAL 0/0", 259, TEXT_BRIGHT)
+
 	set_height(0.0)
 	
 func set_height(meters: float) -> void:
@@ -72,14 +82,23 @@ func set_height(meters: float) -> void:
 	var x := (MOUNTAIN_PICTURE.get_width() - DOG_MARKER.get_width()) / 2.0
 	marker.position = Vector2(x, lerpf(bottom_y, top_y, progress))
 	
+func setup_cargo(cargo: CargoType) -> void:
+	cargo_label.text = cargo.display_name
+	whole_icon = cargo.icon
+	broken_icon = cargo.broken_icon
+	setup_eggs(cargo.count)
+	
 func setup_eggs(total: int) -> void:
+	for old_icon in egg_icons:
+		old_icon.queue_free()
+	egg_icons.clear()
 	var icons_in_row := mini(total, EGGS_PER_ROW)
 	var row_width := icons_in_row * EGG_SPACING - 2.0
 	var left := (WIDTH - row_width) / 2.0
 	
 	for i in total:
 		var icon := TextureRect.new()
-		icon.texture = EGG_ICON
+		icon.texture = whole_icon
 		var column := i % EGGS_PER_ROW
 		var row := floori(float(i) / EGGS_PER_ROW)
 		icon.position = Vector2(left + column * EGG_SPACING, EGGS_TOP + row * 12.0)
@@ -89,13 +108,16 @@ func setup_eggs(total: int) -> void:
 func set_eggs(eggs_left: int) -> void:
 	for i in egg_icons.size():
 		if i < eggs_left:
-			egg_icons[i].texture = EGG_ICON
+			egg_icons[i].texture = whole_icon
 		else:
-			egg_icons[i].texture = EGG_BROKEN_ICON
+			egg_icons[i].texture = broken_icon
 
 func set_shake(amount: float) -> void:
 	shake_bar.value = amount
 	shake_fill.bg_color = TEXT_BRIGHT.lerp(DANGER, amount)
+
+func set_delivered(done: int, goal:int) -> void:
+	goal_label.text = "GOAL %d/%d" % [done, goal]
 
 func _add_label(parent: Control, text: String, y: float, color: Color) -> Label:
 	var label := Label.new()
