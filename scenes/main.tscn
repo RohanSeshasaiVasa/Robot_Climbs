@@ -2,11 +2,18 @@
 
 [ext_resource type="Script" uid="uid://du6ap8xyxe3sb" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dlr8x1qb3a8n0" path="res://scenes/robot_dog.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://c0nwespq15u24" path="res://scripts/obstacle_generator.gd" id="3_85g3d"]
 [ext_resource type="Script" uid="uid://bosfrrnsdnbgp" path="res://scripts/mountain.gd" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://di31nb6l6gfug" path="res://scenes/Summit.tscn" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://b1uanex2neim4" path="res://scripts/sidebar.gd" id="4_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://cit7nylimux5f" path="res://assets/warning.png" id="5_85g3d"]
+[ext_resource type="Script" uid="uid://sicl56124m7g" path="res://scripts/rock_spawner.gd" id="5_choun"]
 [ext_resource type="Script" uid="uid://wsplm571wvqt" path="res://scripts/end_screen.gd" id="6_tefeu"]
-[ext_resource type="PackedScene" uid="uid://drycec3p3kknd" path="res://scenes/rough_ground.tscn" id="7_o6xl0"]
+[ext_resource type="AudioStream" uid="uid://c5vdvv536tyow" path="res://assets/warn.wav" id="7_a8y0u"]
+[ext_resource type="AudioStream" uid="uid://c0glshow8pab8" path="res://assets/crack.wav" id="10_trceg"]
+[ext_resource type="AudioStream" uid="uid://dwajxfpb4ua5" path="res://assets/bump.wav" id="11_a8y0u"]
+[ext_resource type="AudioStream" uid="uid://b1ckmygy0orlw" path="res://assets/win.wav" id="12_jkv2x"]
+[ext_resource type="AudioStream" uid="uid://bkq2hoyv0d0bo" path="res://assets/lose.wav" id="13_jbj1t"]
 
 [node name="Main" type="Node2D" unique_id=1672589832]
 script = ExtResource("1_0wfyh")
@@ -14,10 +21,38 @@ script = ExtResource("1_0wfyh")
 [node name="Mountain" type="Node2D" parent="." unique_id=1945058567]
 script = ExtResource("3_sugp2")
 
+[node name="Obstacles" type="Node2D" parent="." unique_id=1274888599]
+script = ExtResource("3_85g3d")
+
 [node name="Summit" parent="." unique_id=761004015 instance=ExtResource("3_tbgi4")]
 
 [node name="RobotDog" parent="." unique_id=893031852 instance=ExtResource("1_o5qli")]
-position = Vector2(240, 135)
+
+[node name="Effects" type="Node2D" parent="." unique_id=1502646719]
+
+[node name="RockSpawner" type="Node2D" parent="." unique_id=1324478613 node_paths=PackedStringArray("dog")]
+script = ExtResource("5_choun")
+dog = NodePath("../RobotDog")
+
+[node name="SpawnTimer" type="Timer" parent="RockSpawner" unique_id=1037472386]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="WarningTimer" type="Timer" parent="RockSpawner" unique_id=329913342]
+one_shot = true
+
+[node name="WarnSound" type="AudioStreamPlayer2D" parent="RockSpawner" unique_id=653930335]
+stream = ExtResource("7_a8y0u")
+volume_db = -4.0
+
+[node name="WarningLayer" type="CanvasLayer" parent="RockSpawner" unique_id=1739501428]
+
+[node name="Warning" type="Sprite2D" parent="RockSpawner/WarningLayer" unique_id=112273593]
+visible = false
+position = Vector2(192, 14)
+scale = Vector2(2, 2)
+texture = ExtResource("5_85g3d")
 
 [node name="Sidebar" type="CanvasLayer" parent="." unique_id=1052804280]
 script = ExtResource("4_jyhfs")
@@ -25,9 +60,18 @@ script = ExtResource("4_jyhfs")
 [node name="EndScreen" type="CanvasLayer" parent="." unique_id=1418995868]
 script = ExtResource("6_tefeu")
 
-[node name="RoughGround" parent="." unique_id=494748139 instance=ExtResource("7_o6xl0")]
-position = Vector2(192, -150)
+[node name="Sounds" type="Node" parent="." unique_id=349900839]
 
-[node name="RoughGround2" parent="." unique_id=954152459 instance=ExtResource("7_o6xl0")]
-position = Vector2(192, -350)
-patch_size = Vector2(348, 48)
+[node name="Crack" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1066509209]
+stream = ExtResource("10_trceg")
+
+[node name="Bump" type="AudioStreamPlayer2D" parent="Sounds" unique_id=987801585]
+stream = ExtResource("11_a8y0u")
+
+[node name="Win" type="AudioStreamPlayer2D" parent="Sounds" unique_id=5893022]
+process_mode = 3
+stream = ExtResource("12_jkv2x")
+
+[node name="Lose" type="AudioStreamPlayer2D" parent="Sounds" unique_id=866250914]
+process_mode = 3
+stream = ExtResource("13_jbj1t")

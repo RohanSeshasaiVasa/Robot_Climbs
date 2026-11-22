@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dpalxrvtv8auy"]
+
+[ext_resource type="Script" uid="uid://bydt5i3ihmvhv" path="res://scripts/boulder.gd" id="1_7tyja"]
+[ext_resource type="Texture2D" uid="uid://b31jyjs2wipmx" path="res://assets/shadow.png" id="1_i6t03"]
+[ext_resource type="Texture2D" uid="uid://7vblhmeqmn4q" path="res://assets/boulder.png" id="2_7tyja"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cupic"]
+radius = 11.0
+
+[node name="Boulder" type="StaticBody2D" unique_id=659892283 groups=["boulders"]]
+script = ExtResource("1_7tyja")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=68089378]
+position = Vector2(0, 9)
+texture = ExtResource("1_i6t03")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1274428135]
+texture = ExtResource("2_7tyja")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1083180257]
+shape = SubResource("CircleShape2D_cupic")

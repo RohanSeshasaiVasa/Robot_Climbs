@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c6k71orb6blmr"]
+
+[ext_resource type="Texture2D" uid="uid://b31jyjs2wipmx" path="res://assets/shadow.png" id="1_1srm0"]
+[ext_resource type="Script" uid="uid://bknw1bsiebvws" path="res://scripts/rolling_rock.gd" id="1_ab4ya"]
+[ext_resource type="Texture2D" uid="uid://drmfq07xapqke" path="res://assets/rolling_rock.png" id="2_vosxm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ab4ya"]
+radius = 6.0
+
+[node name="RollingRock" type="Area2D" unique_id=46057830]
+script = ExtResource("1_ab4ya")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=192171110]
+position = Vector2(0, 7)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_1srm0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=905242250]
+texture = ExtResource("2_vosxm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1233327798]
+shape = SubResource("CircleShape2D_ab4ya")

@@ -9,6 +9,7 @@ const WIDTH = 96.0
 const BACKGROUND := Color("1a1c2c")
 const BORDER := Color("333c57")
 const TEXT_DIM := Color("94b0c2")
+const DANGER := Color("b13e53")
 const TEXT_BRIGHT := Color("ffcd75")
 const EGGS_PER_ROW: int = 6
 const EGG_SPACING: float = 10.0
@@ -19,6 +20,8 @@ var mountain: TextureRect
 var marker: TextureRect
 var height_value: Label
 var egg_icons: Array[TextureRect] = []
+var shake_bar: ProgressBar
+var shake_fill: StyleBoxFlat
 
 func _ready() -> void:
 	panel = Panel.new()
@@ -30,7 +33,7 @@ func _ready() -> void:
 	style.border_width_left = 2
 	panel.add_theme_stylebox_override("panel", style)
 	add_child(panel)
-	_add_label(panel, "ROBOT\nClimbs", 6, Color.WHITE)
+	_add_label(panel, "ROBOT\nCLIMBS", 6, Color.WHITE)
 	mountain = TextureRect.new()
 	mountain.texture = MOUNTAIN_PICTURE
 	mountain.position = Vector2((WIDTH - MOUNTAIN_PICTURE.get_width()) / 2.0, 32)
@@ -45,7 +48,19 @@ func _ready() -> void:
 	_add_label(panel, "of %d m" % int(Climb.SUMMIT_METERS), 176, TEXT_DIM)
 		
 	_add_label(panel, "EGGS", 194, TEXT_DIM)
-	
+	_add_label(panel, "SHAKE", 232, TEXT_DIM)
+	shake_bar = ProgressBar.new()
+	shake_bar.position = Vector2(12, 244)
+	shake_bar.size = Vector2(WIDTH - 24, 12)
+	shake_bar.max_value = 1.0
+	shake_bar.show_percentage = false
+	var bar_back := StyleBoxFlat.new()
+	bar_back.bg_color = BORDER
+	shake_fill = StyleBoxFlat.new()
+	shake_fill.bg_color = TEXT_BRIGHT
+	shake_bar.add_theme_stylebox_override("backgorund", bar_back)
+	shake_bar.add_theme_stylebox_override("fill", shake_fill)
+	panel.add_child(shake_bar)
 	set_height(0.0)
 	
 func set_height(meters: float) -> void:
@@ -77,7 +92,11 @@ func set_eggs(eggs_left: int) -> void:
 			egg_icons[i].texture = EGG_ICON
 		else:
 			egg_icons[i].texture = EGG_BROKEN_ICON
-	
+
+func set_shake(amount: float) -> void:
+	shake_bar.value = amount
+	shake_fill.bg_color = TEXT_BRIGHT.lerp(DANGER, amount)
+
 func _add_label(parent: Control, text: String, y: float, color: Color) -> Label:
 	var label := Label.new()
 	label.text = text

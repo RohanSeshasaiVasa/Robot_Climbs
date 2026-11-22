@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ttnthc2hduhc" path="res://scripts/robot_dog.gd" id="1_7oqxr"]
 [ext_resource type="Texture2D" uid="uid://buyuiwm7cpwmy" path="res://assets/robot_dog.png" id="2_mnw8q"]
 [ext_resource type="Texture2D" uid="uid://bwhw0hdnw2scj" path="res://assets/basket.png" id="3_4p24b"]
+[ext_resource type="Script" uid="uid://ds4p6nphpd7t7" path="res://scripts/shake_camera.gd" id="4_5hu2h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mnw8q"]
 radius = 7.0
@@ -29,3 +30,4 @@ shape = SubResource("CircleShape2D_mnw8q")
 offset = Vector2(0, -40)
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+script = ExtResource("4_5hu2h")
